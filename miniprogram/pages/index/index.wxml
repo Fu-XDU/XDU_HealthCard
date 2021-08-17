@@ -1,0 +1,79 @@
+<!--pages/index/index.wxml-->
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="weui-toptips weui-toptips_warn {{isWaring ? 'show_toptips' : ''}}">{{errTips}}</view>
+  <view class="weui-form">
+    <view class="weui-form__text-area">
+      <h2 class="weui-form__title">健康卡自动填充</h2>
+      <view class="weui-form__desc">每日8-10时自动提交健康卡</view>
+    </view>
+    <view class="weui-form__control-area">
+      <view class="weui-cells__group weui-cells__group_form">
+        <view class="weui-cells__title">基本信息填写</view>
+        <view class="weui-cells weui-cells_form">
+          <!--学号-->
+          <view class="weui-cell weui-cell_active weui-cell_vcode">
+            <view class="weui-cell__hd"><label class="weui-label">学号</label></view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" placeholder="填写本人学号" placeholder-class="weui-input__placeholder" type="number"
+                bindinput="handleInput" data-name="stuid" value="{{account.stuid}}" />
+            </view>
+          </view>
+          <!--密码-->
+          <view class="weui-cell weui-cell_active weui-cell_vcode">
+            <view class="weui-cell__hd"><label class="weui-label">密码</label></view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" placeholder="填写一站式服务大厅密码" placeholder-class="weui-input__placeholder"
+                bindinput="handleInput" data-name="passwd" type="{{showPasswd?'text':'password'}}"
+                value="{{account.passwd}}" />
+            </view>
+            <!--
+            <view wx:if="{{!!account.passwd}}" class="weui-cell__ft">
+              <image src="{{imgSrc[theme][imgSrcIndex]}}" mode="aspectFit"
+                style="width: 48rpx; height: 32rpx; display: inline-block; box-sizing: border-box; left: NaNrpx; top: NaNrpx"
+                bindtap="shPasswd"></image>
+            </view>
+            -->
+          </view>
+          <!--位置信息-->
+          <view class="weui-cell weui-cell_active weui-cell_vcode">
+            <view class="weui-cell__hd"><label class="weui-label">位置</label></view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" type="text" placeholder="获取位置信息" placeholder-class="weui-input__placeholder"
+                value="{{location.name}}" disabled />
+            </view>
+            <view class="weui-cell__ft">
+              <a class="weui-btn weui-btn_default weui-vcode-btn" bindtap="locate">获取定位</a>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--
+    <view class="weui-form__tips-area">
+      <view class="weui-form__tips">
+        表单页提示，居中对齐
+      </view>
+    </view>
+    -->
+    <view class="weui-form__opr-area">
+      <a class="weui-btn weui-btn_primary" bindtap="submit">确定</a>
+    </view>
+    <!--
+    <view class="weui-form__tips-area">
+      <view class="weui-form__tips">
+        表单页提示，居中对齐
+      </view>
+    </view>
+    -->
+    <!--
+    <view class="weui-form__extra-area">
+      <view class="weui-footer">
+        <view class="weui-footer__links">
+          <a href="javascript:" class="weui-footer__link">Github</a>
+        </view>
+        <view class="weui-footer__text">Copyright © 2008-2021 weui.io</view>
+      </view>
+    </view>
+    -->
+  </view>
+</view>

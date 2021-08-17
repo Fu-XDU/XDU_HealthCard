@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "navigationBarTextStyle": "@navigationBarTextStyle",
+    "navigationBarTitleText": "西电健康卡",
+    "navigationBarBackgroundColor": "@navigationBarBackgroundColor"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "请求获取您的位置信息"
+    }
+  },
+  "style": "v2",
+  "darkmode": true,
+  "sitemapLocation": "sitemap.json",
+  "themeLocation": "style/theme.json"
+}
