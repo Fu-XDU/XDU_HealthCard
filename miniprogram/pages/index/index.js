@@ -96,9 +96,29 @@ Page({
     } else if (!this.data.location) {
       this.showErrTips("请选择位置")
     } else {
-      console.log("提交至服务器")
-      this.showErrTips("提交至服务器失败")
-      //TODO:提交至服务器
+      wx.showLoading({
+        title: '正在提交'
+      })
+      wx.cloud.callFunction({
+        name: 'storage',
+        data: {
+          account: this.data.account,
+          location: this.data.location
+        }
+      }).then((res) => {
+        if (res.result.status) {
+          wx.navigateTo({
+            url: '../success/success?stuid=' + this.data.account.stuid + '&location=' + this.data.location.name,
+          })
+        } else {
+          this.showErrTips(res.result.message)
+          wx.showToast({
+            icon: 'error',
+            title: '提交失败',
+          })
+        }
+        wx.hideLoading()
+      })
     }
   },
   /**

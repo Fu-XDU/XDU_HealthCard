@@ -1,0 +1,25 @@
+<!--pages/success/success.wxml-->
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="weui-msg">
+    <view class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></view>
+    <view class="weui-msg__text-area">
+      <h2 class="weui-msg__title">提交成功</h2>
+      <view class="weui-msg__desc">本程序会每日提交如下数据</view>
+      <view class="weui-msg__custom-area">
+        <view class="weui-form-preview__list">
+          <view class="weui-form-preview__item"><label class="weui-form-preview__label">学号</label>
+            <view class="weui-form-preview__value">{{stuid}}</view>
+          </view>
+          <view class="weui-form-preview__item"><label class="weui-form-preview__label">位置</label>
+            <view class="weui-form-preview__value">{{location}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-msg__opr-area">
+      <view class="weui-btn-area">
+        <a bindtap="home" class="weui-btn weui-btn_primary">确定</a>
+      </view>
+    </view>
+  </view>
+</view>
