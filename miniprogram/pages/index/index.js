@@ -100,15 +100,33 @@ Page({
         title: '正在提交'
       })
       wx.cloud.callFunction({
-        name: 'storage',
+        name: 'submit',
         data: {
           account: this.data.account,
-          location: this.data.location
+          location: this.data.location,
+          onlyLogin: true
         }
       }).then((res) => {
-        if (res.result.status) {
-          wx.navigateTo({
-            url: '../success/success?stuid=' + this.data.account.stuid + '&location=' + this.data.location.name,
+        if (res.result.loginStatus) {
+          wx.cloud.callFunction({
+            name: 'storage',
+            data: {
+              account: this.data.account,
+              location: this.data.location
+            }
+          }).then((res) => {
+            wx.hideLoading()
+            if (res.result.status) {
+              wx.navigateTo({
+                url: '../success/success?stuid=' + this.data.account.stuid + '&location=' + this.data.location.name,
+              })
+            } else {
+              this.showErrTips(res.result.message)
+              wx.showToast({
+                icon: 'error',
+                title: '提交失败',
+              })
+            }
           })
         } else {
           this.showErrTips(res.result.message)
@@ -118,8 +136,16 @@ Page({
           })
         }
         wx.hideLoading()
+      }).catch((err) => {
+        console.error(err)
+        wx.hideLoading()
       })
     }
+  },
+  toGuide: function () {
+    wx.navigateTo({
+      url: '../guide/guide',
+    })
   },
   /**
    * 生命周期函数--监听页面加载

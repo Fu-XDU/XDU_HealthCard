@@ -4,7 +4,7 @@
   <view class="weui-form">
     <view class="weui-form__text-area">
       <h2 class="weui-form__title">健康卡自动填充</h2>
-      <view class="weui-form__desc">每日8-10时自动提交健康卡</view>
+      <view class="weui-form__desc">每日8:00自动提交健康卡</view>
     </view>
     <view class="weui-form__control-area">
       <view class="weui-cells__group weui-cells__group_form">
@@ -48,32 +48,28 @@
         </view>
       </view>
     </view>
-    <!--
     <view class="weui-form__tips-area">
       <view class="weui-form__tips">
-        表单页提示，居中对齐
+        万众一心，共同抗疫
       </view>
     </view>
-    -->
     <view class="weui-form__opr-area">
-      <a class="weui-btn weui-btn_primary" bindtap="submit">确定</a>
+      <a class="weui-btn weui-btn_primary" bindtap="submit">提交</a>
     </view>
     <!--
     <view class="weui-form__tips-area">
       <view class="weui-form__tips">
-        表单页提示，居中对齐
+        万众一心，共同抗疫
       </view>
     </view>
     -->
-    <!--
     <view class="weui-form__extra-area">
       <view class="weui-footer">
-        <view class="weui-footer__links">
-          <a href="javascript:" class="weui-footer__link">Github</a>
+        <view class="weui-footer__links">=
+          <a bindtap="toGuide" class="weui-footer__link">使用说明</a>
         </view>
-        <view class="weui-footer__text">Copyright © 2008-2021 weui.io</view>
+        <view class="weui-footer__text">仅限无风险人员使用</view>
       </view>
     </view>
-    -->
   </view>
 </view>

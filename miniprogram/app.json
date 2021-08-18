@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/success/success"
+    "pages/success/success",
+    "pages/guide/guide"
   ],
   "window": {
     "navigationBarTextStyle": "@navigationBarTextStyle",
