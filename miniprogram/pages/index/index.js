@@ -13,12 +13,29 @@ Page({
     imgSrc: { 'dark': ['../../images/showPasswd_dark.png', '../../images/hidePasswd_dark.png'], 'light': ['../../images/showPasswd.png', '../../images/hidePasswd.png'] },
     imgSrcIndex: 1,
     showPasswd: false,
-    theme: wx.getSystemInfoSync().theme
+    theme: wx.getSystemInfoSync().theme,
+    dialog: false,
+    buttonStyle: 'weui-btn_primary',
+    buttonText: '提交'
   },
   shPasswd: function () {
     this.setData({
       showPasswd: !this.data.showPasswd,
       imgSrcIndex: this.data.showPasswd ? 1 : 0
+    })
+  },
+  isRegistered: function () {
+    wx.cloud.callFunction({
+      name: 'isRegistered'
+    }).then((res) => {
+      console.log(res)
+      if (res.result.data.length != 0) {
+        this.setData({
+          buttonStyle: 'weui-btn_default',
+          buttonText: '我的项目',
+          myService: res.result.data[0]
+        })
+      }
     })
   },
   locate: function () {
@@ -88,7 +105,25 @@ Page({
       })
     }, 2500);
   },
-  submit: function () {
+  close: function () {
+    this.setData({
+      dialog: false
+    })
+  },
+  show: function () {
+    if (!this.data.myService) {
+      if (this.checkPara()) {
+        this.setData({
+          dialog: true
+        })
+      }
+    } else {
+      wx.navigateTo({
+        url: '../success/success?service=true&stuid=' + this.data.myService.account.stuid + '&location=' + this.data.myService.location.geo_api_info.formattedAddress
+      })
+    }
+  },
+  checkPara: function () {
     if (!this.data.account.stuid) {
       this.showErrTips("请输入学号")
     } else if (!this.data.account.passwd) {
@@ -96,6 +131,13 @@ Page({
     } else if (!this.data.location) {
       this.showErrTips("请选择位置")
     } else {
+      return true
+    }
+    return false
+  },
+  submit: function () {
+    this.close()
+    if (this.checkPara()) {
       wx.showLoading({
         title: '正在提交'
       })
@@ -115,10 +157,9 @@ Page({
               location: this.data.location
             }
           }).then((res) => {
-            wx.hideLoading()
             if (res.result.status) {
               wx.navigateTo({
-                url: '../success/success?stuid=' + this.data.account.stuid + '&location=' + this.data.location.name,
+                url: '../success/success?service=false&stuid=' + this.data.account.stuid + '&location=' + this.data.location.name,
               })
             } else {
               this.showErrTips(res.result.message)
@@ -127,6 +168,7 @@ Page({
                 title: '提交失败',
               })
             }
+            wx.hideLoading()
           })
         } else {
           this.showErrTips(res.result.message)
@@ -152,6 +194,7 @@ Page({
    */
   onLoad: function (options) {
     var _this = this
+    this.isRegistered()
     wx.onThemeChange(function () {
       _this.setData({
         theme: wx.getSystemInfoSync().theme

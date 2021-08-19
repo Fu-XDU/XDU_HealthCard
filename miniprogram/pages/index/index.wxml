@@ -15,7 +15,7 @@
             <view class="weui-cell__hd"><label class="weui-label">学号</label></view>
             <view class="weui-cell__bd">
               <input class="weui-input" placeholder="填写本人学号" placeholder-class="weui-input__placeholder" type="number"
-                bindinput="handleInput" data-name="stuid" value="{{account.stuid}}" />
+                bindinput="handleInput" bindfocus="close" data-name="stuid" value="{{account.stuid}}" />
             </view>
           </view>
           <!--密码-->
@@ -23,7 +23,7 @@
             <view class="weui-cell__hd"><label class="weui-label">密码</label></view>
             <view class="weui-cell__bd">
               <input class="weui-input" placeholder="填写一站式服务大厅密码" placeholder-class="weui-input__placeholder"
-                bindinput="handleInput" data-name="passwd" type="{{showPasswd?'text':'password'}}"
+                bindinput="handleInput" bindfocus="close" data-name="passwd" type="{{showPasswd?'text':'password'}}"
                 value="{{account.passwd}}" />
             </view>
             <!--
@@ -54,7 +54,7 @@
       </view>
     </view>
     <view class="weui-form__opr-area">
-      <a class="weui-btn weui-btn_primary" bindtap="submit">提交</a>
+      <a class="weui-btn {{buttonStyle}}" bindtap="show">{{buttonText}}</a>
     </view>
     <!--
     <view class="weui-form__tips-area">
@@ -69,6 +69,37 @@
           <a bindtap="toGuide" class="weui-footer__link">使用说明</a>
         </view>
         <view class="weui-footer__text">仅限无风险人员使用</view>
+      </view>
+    </view>
+  </view>
+  <view class="fadeIn" wx:if="{{dialog}}">
+    <view class="weui-mask" bindtap="close"></view>
+    <view class="weui-half-screen-dialog">
+      <view class="weui-half-screen-dialog__hd">
+        <view class="weui-half-screen-dialog__hd__side" bindtap="close">
+          <a class="weui-icon-btn">返回<i class="weui-icon-back-arrow-thin"></i></a>
+        </view>
+        <view class="weui-half-screen-dialog__hd__main">
+          <strong class="weui-half-screen-dialog__title">提示</strong>
+          <!--<view class="weui-half-screen-dialog__subtitle">标题</view>-->
+        </view>
+        <!--
+        <view class="weui-half-screen-dialog__hd__side">
+          <a class="weui-icon-btn">更多<i class="weui-icon-more"></i></a>
+        </view>
+        -->
+      </view>
+      <view class="weui-half-screen-dialog__bd">
+        <view class="weui-half-screen-dialog__desc">
+          请查看<text bindtap="toGuide" style="color: var(--weui-LINK);">使用说明</text>来了解哪些信息会被提交
+        </view>
+        <view class="weui-half-screen-dialog__tips">
+          信息提交之后，自下一个8:00开始，程序将自动提交健康卡。
+        </view>
+      </view>
+      <view class="weui-half-screen-dialog__ft">
+        <a class="weui-btn weui-btn_default" bindtap="close">取消</a>
+        <a class="weui-btn weui-btn_primary" bindtap="submit">提交</a>
       </view>
     </view>
   </view>

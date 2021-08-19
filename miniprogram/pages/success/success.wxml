@@ -1,5 +1,6 @@
 <!--pages/success/success.wxml-->
 <view class="page" data-weui-theme="{{theme}}">
+  <view class="weui-toptips weui-toptips_warn {{isWaring ? 'show_toptips' : ''}}">{{errTips}}</view>
   <view class="weui-msg">
     <view class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></view>
     <view class="weui-msg__text-area">
@@ -7,11 +8,9 @@
       <view class="weui-msg__desc">本程序会每日提交如下数据</view>
       <view class="weui-msg__custom-area">
         <view class="weui-form-preview__list">
-          <view class="weui-form-preview__item"><label class="weui-form-preview__label">学号</label>
-            <view class="weui-form-preview__value">{{stuid}}</view>
-          </view>
-          <view class="weui-form-preview__item"><label class="weui-form-preview__label">位置</label>
-            <view class="weui-form-preview__value">{{location}}</view>
+          <view wx:for="{{data}}" wx:key="key"  class="weui-form-preview__item"><label
+              class="weui-form-preview__label" style="min-width: 13em;">{{item.key}}</label>
+            <view class="weui-form-preview__value">{{item.value}}</view>
           </view>
         </view>
       </view>
@@ -19,6 +18,42 @@
     <view class="weui-msg__opr-area">
       <view class="weui-btn-area">
         <a bindtap="home" class="weui-btn weui-btn_primary">确定</a>
+      </view>
+    </view>
+    <view wx:if="{{isService}}" class="weui-msg__opr-area">
+      <view class="weui-btn-area">
+        <a bindtap="show" class="weui-btn weui-btn_warn">关闭自动提交</a>
+      </view>
+    </view>
+  </view>
+  <view class="fadeIn" wx:if="{{dialog}}">
+    <view class="weui-mask" bindtap="close"></view>
+    <view class="weui-half-screen-dialog">
+      <view class="weui-half-screen-dialog__hd">
+        <view class="weui-half-screen-dialog__hd__side" bindtap="close">
+          <a class="weui-icon-btn">返回<i class="weui-icon-back-arrow-thin"></i></a>
+        </view>
+        <view class="weui-half-screen-dialog__hd__main">
+          <strong class="weui-half-screen-dialog__title">提示</strong>
+          <!--<view class="weui-half-screen-dialog__subtitle">标题</view>-->
+        </view>
+        <!--
+        <view class="weui-half-screen-dialog__hd__side">
+          <a class="weui-icon-btn">更多<i class="weui-icon-more"></i></a>
+        </view>
+        -->
+      </view>
+      <view class="weui-half-screen-dialog__bd">
+        <view class="weui-half-screen-dialog__desc">
+          自动提交服务即将停止
+        </view>
+        <view class="weui-half-screen-dialog__tips">
+          数据将会从数据库中永久删除
+        </view>
+      </view>
+      <view class="weui-half-screen-dialog__ft">
+        <a class="weui-btn weui-btn_default" bindtap="close">取消</a>
+        <a class="weui-btn weui-btn_primary" bindtap="delete">确定</a>
       </view>
     </view>
   </view>
