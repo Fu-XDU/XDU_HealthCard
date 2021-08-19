@@ -1,2 +1,58 @@
 <!--pages/guide/guide.wxml-->
-<text>pages/guide/guide.wxml</text>
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="page__bd">
+    <view class="weui-article">
+      <view class="weui-article__h1">使用说明</view>
+      <view class="weui-article__section">
+
+        <view class="weui-article__section">
+          <view class="weui-article__h2">1.1 概述</view>
+          <view class="weui-article__p">
+            本小程序用于西安电子科技大学健康卡（疫情通）的自动提交。小程序的理念是在不妨碍疫情防控的前提下，为大部分处于安全区的同学提供便捷的自动提交服务。
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h2">1.2 数据提交</view>
+          <view class="weui-article__p">
+            小程序将会提交如下数据：
+            <view class="weui-msg__custom-area">
+              <view class="weui-form-preview__list">
+                <view wx:for="{{data}}" wx:key="key" class="weui-form-preview__item"><label
+                    class="weui-form-preview__label" style="min-width: 13em;">{{item.key}}</label>
+                  <view class="weui-form-preview__value">{{item.value}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h2">1.3 免责声明</view>
+          <view class="weui-article__p">
+            您应该对使用本程序的结果自行承担风险。开发者不做任何形式的保证：不保证服务结果满足您的要求，不保证提交服务不中断，不保证提交结果的安全性、正确性、及时性、合法性。因网络状况、通讯线路、第三方网站等任何原因而导致您不能正常使用本程序，开发者不承担任何法律责任。
+          </view>
+          <view class="weui-article__p">
+            程序尊重并保护所有使用此程序用户的个人隐私权，您输入的学号、密码等个人资料，非经您亲自许可或根据相关法律、法规的强制性规定，程序不会主动地泄露给第三方或用于此程序功能以外的服务。
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h2">{{item.header}}</view>
+          <view class="weui-article__p">
+            {{item.text}}
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h2">{{item.header}}</view>
+          <view class="weui-article__p">
+            {{item.text}}
+          </view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h2">{{item.header}}</view>
+          <view class="weui-article__p">
+            {{item.text}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

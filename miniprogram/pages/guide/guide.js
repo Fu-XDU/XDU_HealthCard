@@ -5,62 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    data: [{ key: '学号', value: '你的学号' }, { key: '位置', value: '你选择的位置' }, { key: '所在地点', value: '中国大陆' }, { key: '今日是否在校', value: '否' }, { key: '今日是否在中高风险地区', value: '否' }, { key: '今日体温范围', value: '36.5℃~36.9℃' }, { key: '今日是否出现发热等症状', value: '否' }, { key: '今日是否接触风险人群', value: '否' }, { key: '今日是否接触密接人员', value: '否' }, { key: '今日是否接触境外人员', value: '否' }, { key: '是否有任何与疫情相关的情况', value: '否' }]
   }
 })
