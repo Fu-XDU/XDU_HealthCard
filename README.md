@@ -47,7 +47,7 @@
 
 ## 截图
 
-<img src="./READMEImgs/screenshot.jpg" alt="index_dark" style="zoom:25%;" />
+<img src="./READMEImgs/screenshot.png" alt="screenshot" style="zoom:25%;" />
 
 
 ## 免责声明
@@ -67,7 +67,7 @@
 + 前往[微信公众平台](https://mp.weixin.qq.com)使用邮箱注册一个小程序。
 + 在[微信公众平台](https://mp.weixin.qq.com)登录刚注册的小程序，前往`开发管理->开发设置`将`AppID(小程序ID)`复制并记录下来。
 + Clone此项目代码，并使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)导入，导入时填写自己的`AppID(小程序ID)`，并勾选`微信云开发`。
-+ 导入之后，在微信开发者工具左上角点击`云开发`，创建一个云环境。并在云开发控制台数据库页新建名为`data`的空集合。
++ 导入之后，在微信开发者工具左上角点击`云开发`，创建一个云环境。并在云开发控制台数据库页新建名为`data`和`3CheckData`的空集合。
 + 在云开发控制台数据库页选中集合`data`和`3CheckData`，分别点击数据权限，选中`所有用户可读，仅创建者可读写`。
 + 在微信开发者工具中间资源管理器处，找到`cloudfunctions`文件夹，可以看到里面一共有8个文件夹，分别是八个云函数。
 + 前往[腾讯位置服务](https://lbs.qq.com)，登录并进入控制台，点击`应用管理->我的应用->创建应用`创建一个应用。然后点击`添加key`，启用产品选择微信小程序并填入你的`AppID`，拿到key。

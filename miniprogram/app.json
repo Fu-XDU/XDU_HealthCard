@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/threeChecks/threeChecks",
     "pages/index/index",
     "pages/success/success",
-    "pages/guide/guide",
-    "pages/threeChecks/threeChecks"
+    "pages/guide/guide"
   ],
   "window": {
     "navigationBarTextStyle": "@navigationBarTextStyle",

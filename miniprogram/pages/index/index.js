@@ -190,11 +190,13 @@ Page({
       url: '../guide/guide',
     })
   },
+  /*
   to3Checks: function () {
     wx.reLaunch({
       url: '../threeChecks/threeChecks',
     })
   },
+  */
   /**
    * 生命周期函数--监听页面加载
    */
