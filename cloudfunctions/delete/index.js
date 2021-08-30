@@ -6,7 +6,7 @@ const db = cloud.database()
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
-  return await db.collection('data').where({
+  return await db.collection(event.type == 0 ? 'data' : '3CheckData').where({
     openid: wxContext.OPENID
   }).remove()
 }

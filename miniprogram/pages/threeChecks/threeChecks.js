@@ -1,4 +1,4 @@
-// pages/index/index.js
+// pages/threeChecks/threeChecks.js
 Page({
   mixins: [require('../../mixin/themeChanged')],
   /**
@@ -6,7 +6,8 @@ Page({
    */
   data: {
     account: { 'stuid': '', 'passwd': '' },
-    location: '',
+    locations: ['西电南校区', '西电北校区'],
+    locationIndex: -1,
     isWaring: false,
     errTips: '错误提示',
     timeoutID: 0,
@@ -28,9 +29,10 @@ Page({
     wx.cloud.callFunction({
       name: 'isRegistered',
       data: {
-        type: 0
+        type: 1
       }
     }).then((res) => {
+
       if (res.result.data.length != 0) {
         this.setData({
           buttonStyle: 'weui-btn_default',
@@ -40,50 +42,9 @@ Page({
       }
     })
   },
-  locate: function () {
-    var _this = this
-    const getLocation = function () {
-      wx.chooseLocation().then((res) => {
-        if (!res.address || !res.name) {
-          wx.showModal({
-            title: '错误',
-            content: '没有选择地点'
-          })
-        } else {
-          _this.setData({
-            location: res
-          })
-        }
-      }).catch((err) => { })
-    }
-    wx.authorize({
-      scope: 'scope.userLocation',//发起定位授权
-      success: function () {
-        getLocation()
-        //授权成功，此处调用获取定位函数
-      }, fail() {
-        //如果用户拒绝授权，则要告诉用户不授权就不能使用，引导用户前往设置页面。
-        console.error('没有定位授权')
-        wx.showModal({
-          cancelColor: 'cancelColor',
-          title: '没有授权无法获取位置信息',
-          content: '是否前往设置页面手动开启',
-          success: function (res) {
-            if (res.confirm) {
-              wx.openSetting({
-                withSubscriptions: true,
-              })
-            } else {
-              wx.showToast({
-                icon: 'none',
-                title: '您取消了定位授权',
-              })
-            }
-          }, fail: function (e) {
-            console.log(e)
-          }
-        })
-      }
+  bindPickerChange: function (e) {
+    this.setData({
+      locationIndex: e.detail.value
     })
   },
   handleInput: function (data) {
@@ -121,7 +82,7 @@ Page({
       }
     } else {
       wx.navigateTo({
-        url: '../success/success?service=true&type=0&stuid=' + this.data.myService.account.stuid + '&location=' + this.data.myService.location.geo_api_info.formattedAddress
+        url: '../success/success?service=true&type=1&stuid=' + this.data.myService.account.stuid + '&location=' + this.data.myService.location
       })
     }
   },
@@ -152,7 +113,7 @@ Page({
       }).then((res) => {
         if (res.result.loginStatus) {
           wx.cloud.callFunction({
-            name: 'storage',
+            name: 'storage3Checks',
             data: {
               account: this.data.account,
               location: this.data.location
@@ -160,9 +121,10 @@ Page({
           }).then((res) => {
             if (res.result.status) {
               wx.navigateTo({
-                url: '../success/success?service=false&type=0&stuid=' + this.data.account.stuid + '&location=' + this.data.location.name,
+                url: '../success/success?service=false&type=1&stuid=' + this.data.account.stuid + '&location=' + this.data.location,
               })
             } else {
+              console.error(res)
               this.showErrTips(res.result.message)
               wx.showToast({
                 icon: 'error',
@@ -188,11 +150,6 @@ Page({
   toGuide: function () {
     wx.navigateTo({
       url: '../guide/guide',
-    })
-  },
-  to3Checks: function () {
-    wx.reLaunch({
-      url: '../threeChecks/threeChecks',
     })
   },
   /**

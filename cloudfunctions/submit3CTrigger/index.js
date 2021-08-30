@@ -4,7 +4,7 @@ const db = cloud.database()
 const MAX_LIMIT = 100
 exports.main = async (event, context) => {
   // 先取出集合记录总数
-  const countResult = await db.collection('data').count()
+  const countResult = await db.collection('3CheckData').count()
   const total = countResult.total
   if (total == 0) {
     return {
@@ -28,7 +28,7 @@ exports.main = async (event, context) => {
   })
   for (let i = 0; i < allData.data.length; i++) {
     cloud.callFunction({
-      name: 'submit',
+      name: 'submit3Checks',
       data: allData.data[i]
     }).then(res => {
       console.log(allData.data[i].openid, res.result)

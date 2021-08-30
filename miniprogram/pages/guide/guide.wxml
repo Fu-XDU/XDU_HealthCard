@@ -8,16 +8,24 @@
         <view class="weui-article__section">
           <view class="weui-article__h2">1.1 概述</view>
           <view class="weui-article__p">
-            本小程序用于西安电子科技大学健康卡（疫情通）的自动提交。小程序的理念是在不妨碍疫情防控的前提下，为大部分处于安全区的同学提供便捷的自动提交服务。
+            本小程序用于西安电子科技大学健康卡（疫情通）和晨午晚检的自动提交。小程序的理念是在不妨碍疫情防控的前提下，为大部分处于安全区的同学提供便捷的自动提交服务。
           </view>
         </view>
         <view class="weui-article__section">
           <view class="weui-article__h2">1.2 数据提交</view>
           <view class="weui-article__p">
-            小程序将会提交如下数据：
+            小程序将会提交如下数据。
             <view class="weui-msg__custom-area">
+              健康卡（疫情通）：
               <view class="weui-form-preview__list">
-                <view wx:for="{{data}}" wx:key="key" class="weui-form-preview__item"><label
+                <view wx:for="{{data[0]}}" wx:key="key" class="weui-form-preview__item"><label
+                    class="weui-form-preview__label" style="min-width: 13em;">{{item.key}}</label>
+                  <view class="weui-form-preview__value">{{item.value}}</view>
+                </view>
+              </view>
+              晨午晚检：
+              <view class="weui-form-preview__list">
+                <view wx:for="{{data[1]}}" wx:key="key" class="weui-form-preview__item"><label
                     class="weui-form-preview__label" style="min-width: 13em;">{{item.key}}</label>
                   <view class="weui-form-preview__value">{{item.value}}</view>
                 </view>
