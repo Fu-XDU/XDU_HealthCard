@@ -22,7 +22,7 @@
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
-    "useApiHostProcess": false,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -37,7 +37,7 @@
     "showES6CompileOption": false
   },
   "appid": "wxe975e992788d31a7",
-  "projectname": "xcCard",
+  "projectname": "XDU_HealthCard",
   "libVersion": "2.19.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
