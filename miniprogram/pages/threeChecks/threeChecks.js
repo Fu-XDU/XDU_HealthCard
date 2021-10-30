@@ -32,7 +32,6 @@ Page({
         type: 1
       }
     }).then((res) => {
-
       if (res.result.data.length != 0) {
         this.setData({
           buttonStyle: 'weui-btn_default',
@@ -91,7 +90,7 @@ Page({
       this.showErrTips("请输入学号")
     } else if (!this.data.account.passwd) {
       this.showErrTips("请输入密码")
-    } else if (!this.data.location) {
+    } else if (this.data.locationIndex == -1) {
       this.showErrTips("请选择位置")
     } else {
       return true
@@ -116,12 +115,12 @@ Page({
             name: 'storage3Checks',
             data: {
               account: this.data.account,
-              location: this.data.location
+              location: this.data.locations[this.data.locationIndex]
             }
           }).then((res) => {
             if (res.result.status) {
               wx.navigateTo({
-                url: '../success/success?service=false&type=1&stuid=' + this.data.account.stuid + '&location=' + this.data.location,
+                url: '../success/success?service=false&type=1&stuid=' + this.data.account.stuid + '&location=' + this.data.locations[this.data.locationIndex],
               })
             } else {
               console.error(res)
@@ -144,6 +143,10 @@ Page({
       }).catch((err) => {
         console.error(err)
         wx.hideLoading()
+        wx.showToast({
+          icon: 'error',
+          title: '提交失败',
+        })
       })
     }
   },
