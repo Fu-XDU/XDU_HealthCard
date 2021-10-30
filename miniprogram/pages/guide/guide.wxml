@@ -10,6 +10,9 @@
           <view class="weui-article__p">
             本小程序用于西安电子科技大学健康卡（疫情通）和晨午晚检的自动提交。小程序的理念是在不妨碍疫情防控的前提下，为大部分处于安全区的同学提供便捷的自动提交服务。
           </view>
+          <view class="weui-article__p" bindtap="copyGithubUrl">
+            GitHub链接（点击复制）：{{githubUrl}}
+          </view>
         </view>
         <view class="weui-article__section">
           <view class="weui-article__h2">1.2 数据提交</view>
@@ -40,24 +43,6 @@
           </view>
           <view class="weui-article__p">
             程序尊重并保护所有使用此程序用户的个人隐私权，您输入的学号、密码等个人资料，非经您亲自许可或根据相关法律、法规的强制性规定，程序不会主动地泄露给第三方或用于此程序功能以外的服务。
-          </view>
-        </view>
-        <view class="weui-article__section">
-          <view class="weui-article__h2">{{item.header}}</view>
-          <view class="weui-article__p">
-            {{item.text}}
-          </view>
-        </view>
-        <view class="weui-article__section">
-          <view class="weui-article__h2">{{item.header}}</view>
-          <view class="weui-article__p">
-            {{item.text}}
-          </view>
-        </view>
-        <view class="weui-article__section">
-          <view class="weui-article__h2">{{item.header}}</view>
-          <view class="weui-article__p">
-            {{item.text}}
           </view>
         </view>
       </view>
