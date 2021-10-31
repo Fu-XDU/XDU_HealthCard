@@ -26,7 +26,7 @@ Page({
   },
   home: function () {
     wx.reLaunch({
-      url: '../index/index',
+      url: '../threeChecks/threeChecks',
     })
   },
   show: function () {
