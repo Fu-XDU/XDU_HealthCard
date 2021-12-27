@@ -94,7 +94,7 @@
           请查看<text bindtap="toGuide" style="color: var(--weui-LINK);">使用说明</text>来了解哪些信息会被提交
         </view>
         <view class="weui-half-screen-dialog__tips">
-          信息提交之后，自下一个8:00开始，程序将自动提交健康卡。
+          信息提交之后，自下一个8:30/12:30/18:30开始，程序将自动提交晨午晚检。
         </view>
       </view>
       <view class="weui-half-screen-dialog__ft">
