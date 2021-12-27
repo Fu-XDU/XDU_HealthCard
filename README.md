@@ -47,7 +47,9 @@
 
 ## 截图
 
-<img src="./READMEImgs/screenshot.png" alt="screenshot" style="zoom:25%;" />
+![Screenshot-light](./READMEImgs/screenshot-light.png#gh-light-mode-only)
+
+![Screenshot-dark](./READMEImgs/screenshot-dark.png#gh-dark-mode-only)
 
 
 ## 免责声明
