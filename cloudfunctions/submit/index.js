@@ -116,10 +116,14 @@ exports.main = async (event, context) => {
       rp(options)
         .then(function (body) {
           body = JSON.parse(body)
-          resolve({ loginStatus: true, submitStatus: body.e == 0, message: body.m })
+          var res = { username: event.account.stuid, loginStatus: true, submitStatus: body.e == 0, message: body.m }
+          console.log(res)
+          resolve(res)
         })
         .catch(function (err) {
-          resolve({ loginStatus: true, submitStatus: false, message: err })
+          var res = { username: event.account.stuid, loginStatus: true, submitStatus: false, message: err }
+          console.log(res)
+          resolve(res)
         });
     })
   }
