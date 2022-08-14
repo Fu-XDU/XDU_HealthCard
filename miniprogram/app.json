@@ -15,6 +15,10 @@
       "desc": "请求获取您的位置信息"
     }
   },
+  "requiredPrivateInfos":[
+    "chooseLocation",
+    "getLocation"
+  ],
   "style": "v2",
   "darkmode": true,
   "sitemapLocation": "sitemap.json",
