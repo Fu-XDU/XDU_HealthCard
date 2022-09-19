@@ -88,6 +88,10 @@ GLOBAL OPTIONS:
 
 ​	mapApiKey的获取方法：前往[腾讯位置服务](https://lbs.qq.com/)，登录并进入控制台，点击`应用管理->我的应用->创建应用`创建一个应用。然后点击`添加key`，启用产品选择微信小程序并填入你的`AppID`，拿到key，即为mapApiKey。同时选中WebServiceAPI选项，但是不填写任何内容。
 
+#### Use in Docker
+
+[fuming/xdu_health_card_server - Docker Hub](https://hub.docker.com/r/fuming/xdu_health_card_server)
+
 ### 客户端说明
 
 ​	请修改[./miniprogram/utils/api.js](https://github.com/Fu-XDU/XDU_HealthCard/tree/main/miniprogram/utils/api.js#L1)第一行以确保小程序正常连接服务端。

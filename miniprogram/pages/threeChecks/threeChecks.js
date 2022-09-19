@@ -170,6 +170,10 @@ Page({
     })
   },
 
+  hideKeyboard: function () {
+    wx.hideKeyboard()
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
