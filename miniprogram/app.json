@@ -15,7 +15,7 @@
       "desc": "请求获取您的位置信息"
     }
   },
-  "requiredPrivateInfos":[
+  "requiredPrivateInfos": [
     "chooseLocation",
     "getLocation"
   ],

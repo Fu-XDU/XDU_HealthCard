@@ -1,4 +1,6 @@
 // pages/index/index.js
+// 疫情通（健康卡）页面
+const api = require('../../utils/api')
 Page({
   mixins: [require('../../mixin/themeChanged')],
   /**
@@ -10,36 +12,51 @@ Page({
     isWaring: false,
     errTips: '错误提示',
     timeoutID: 0,
-    imgSrc: { 'dark': ['../../images/showPasswd_dark.png', '../../images/hidePasswd_dark.png'], 'light': ['../../images/showPasswd.png', '../../images/hidePasswd.png'] },
-    imgSrcIndex: 1,
-    showPasswd: false,
+    // imgSrc: { 'dark': ['../../images/showPasswd_dark.png', '../../images/hidePasswd_dark.png'], 'light': ['../../images/showPasswd.png', '../../images/hidePasswd.png'] },
+    // imgSrcIndex: 1,
+    // showPasswd: false,
     theme: wx.getSystemInfoSync().theme,
     dialog: false,
     buttonStyle: 'weui-btn_primary',
     buttonText: '提交'
   },
+
+  /*
   shPasswd: function () {
     this.setData({
       showPasswd: !this.data.showPasswd,
       imgSrcIndex: this.data.showPasswd ? 1 : 0
     })
   },
+  */
+
   isRegistered: function () {
-    wx.cloud.callFunction({
-      name: 'isRegistered',
-      data: {
-        type: 0
+    var _this = this
+    api.summary().then((res) => {
+      console.log(res)
+      if (res.data.code == 0) {
+        if (res.data.data.health_card.id != 0) {
+          res.data.data.health_card.location = JSON.parse(res.data.data.health_card.location)
+          this.setData({
+            buttonStyle: 'weui-btn_default',
+            buttonText: '我的项目',
+            myService: res.data.data.health_card
+          })
+        } else {
+          this.setData({
+            buttonStyle: 'weui-btn_primary',
+            buttonText: '提交',
+            myService: null
+          })
+        }
+      } else {
+        _this.showErrTips(api.handleApiError(res.data?.code))
       }
-    }).then((res) => {
-      if (res.result.data.length != 0) {
-        this.setData({
-          buttonStyle: 'weui-btn_default',
-          buttonText: '我的项目',
-          myService: res.result.data[0]
-        })
-      }
+    }).catch((err) => {
+      _this.showErrTips(api.handleApiError(err.errMsg == "request:fail " ? -1 : err.data?.code))
     })
   },
+
   locate: function () {
     var _this = this
     const getLocation = function () {
@@ -86,6 +103,7 @@ Page({
       }
     })
   },
+
   handleInput: function (data) {
     const name = data.target.dataset.name
     const value = data.detail.value
@@ -94,6 +112,7 @@ Page({
       account: this.data.account
     })
   },
+
   showErrTips: function (tips) {
     clearTimeout(this.data.timeoutID)
     this.setData({
@@ -107,11 +126,13 @@ Page({
       })
     }, 2500);
   },
+
   close: function () {
     this.setData({
       dialog: false
     })
   },
+
   show: function () {
     if (!this.data.myService) {
       if (this.checkPara()) {
@@ -121,10 +142,11 @@ Page({
       }
     } else {
       wx.navigateTo({
-        url: '../success/success?service=true&type=0&stuid=' + this.data.myService.account.stuid + '&location=' + this.data.myService.location.geo_api_info.formattedAddress
+        url: '../success/success?service=true&type=0&stuid=' + this.data.myService.stu_id + '&location=' + this.data.myService.location.geo_api_info.formattedAddress
       })
     }
   },
+
   checkPara: function () {
     if (!this.data.account.stuid) {
       this.showErrTips("请输入学号")
@@ -137,59 +159,46 @@ Page({
     }
     return false
   },
+
   submit: function () {
+    var _this = this
     this.close()
     if (this.checkPara()) {
       wx.showLoading({
         title: '正在提交'
       })
-      wx.cloud.callFunction({
-        name: 'submit',
-        data: {
-          account: this.data.account,
-          onlyLogin: true
-        }
-      }).then((res) => {
-        if (res.result.loginStatus) {
-          wx.cloud.callFunction({
-            name: 'storage',
-            data: {
-              account: this.data.account,
-              location: this.data.location
-            }
-          }).then((res) => {
-            if (res.result.status) {
-              wx.navigateTo({
-                url: '../success/success?service=false&type=0&stuid=' + this.data.account.stuid + '&location=' + this.data.location.name,
-              })
-            } else {
-              this.showErrTips(res.result.message)
-              wx.showToast({
-                icon: 'error',
-                title: '提交失败',
-              })
-            }
-            wx.hideLoading()
+      let body = {
+        stu_id: this.data.account.stuid,
+        passwd: this.data.account.passwd,
+        latitude: this.data.location.latitude,
+        longitude: this.data.location.longitude,
+      }
+      api.submitHealthCard(body).then((res) => {
+        if (res.data.code == 0) {
+          wx.navigateTo({
+            url: '../success/success?service=false&type=0&stuid=' + this.data.account.stuid + '&location=' + this.data.location.name,
+          })
+          this.setData({
+            account: { 'stuid': '', 'passwd': '' },
+            location: ''
           })
         } else {
-          this.showErrTips(res.result.message)
-          wx.showToast({
-            icon: 'error',
-            title: '提交失败',
-          })
+          _this.showErrTips(res.data.error)
         }
         wx.hideLoading()
       }).catch((err) => {
-        console.error(err)
+        _this.showErrTips("提交失败")
         wx.hideLoading()
       })
     }
   },
+
   toGuide: function () {
     wx.navigateTo({
       url: '../guide/guide',
     })
   },
+
   /*
   to3Checks: function () {
     wx.reLaunch({
@@ -197,16 +206,20 @@ Page({
     })
   },
   */
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var _this = this
-    this.isRegistered()
     wx.onThemeChange(function () {
       _this.setData({
         theme: wx.getSystemInfoSync().theme
       })
     })
-  }
+  },
+
+  onShow: function (options) {
+    this.isRegistered()
+  },
 })

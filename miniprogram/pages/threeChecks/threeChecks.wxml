@@ -41,8 +41,6 @@
               <picker bindchange="bindPickerChange" value="{{locationIndex}}" range="{{locations}}">
               <input class="weui-input" type="text" placeholder="选择位置信息" placeholder-class="weui-input__placeholder"
                 value="{{locations[locationIndex]}}" disabled>
-              
-              
               </input>
             </picker>
             </view>

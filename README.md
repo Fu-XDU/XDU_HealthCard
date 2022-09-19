@@ -60,24 +60,34 @@
 
 ## 构建项目
 
-​	小程序新手？没有问题，在这里构建你的第一个小程序。
+​	本项目已完全移除云开发依赖。小程序与服务器直接交互。
 
-​	只要你有一个微信号，一个邮箱，就可以完全免费构建一个微信小程序。小程序完全运行在云端，不需要任何服务器设备。
+​	服务端二进制文件位于[releases](https://github.com/Fu-XDU/XDU_HealthCard/releases)页。
 
-​	要构建小程序，请按照以下步骤操作：
+### 服务端说明
 
-+ 前往[微信公众平台](https://mp.weixin.qq.com)使用邮箱注册一个小程序。
-+ 在[微信公众平台](https://mp.weixin.qq.com)登录刚注册的小程序，前往`开发管理->开发设置`将`AppID(小程序ID)`复制并记录下来。
-+ Clone此项目代码，并使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)导入，导入时填写自己的`AppID(小程序ID)`，并勾选`微信云开发`。
-+ 导入之后，在微信开发者工具左上角点击`云开发`，创建一个云环境。并在云开发控制台数据库页新建名为`data`和`3CheckData`的空集合。
-+ 在云开发控制台数据库页选中集合`data`和`3CheckData`，分别点击数据权限，选中`所有用户可读，仅创建者可读写`。
-+ 在微信开发者工具中间资源管理器处，找到`cloudfunctions`文件夹，可以看到里面一共有8个文件夹，分别是八个云函数。
-+ 前往[腾讯位置服务](https://lbs.qq.com)，登录并进入控制台，点击`应用管理->我的应用->创建应用`创建一个应用。然后点击`添加key`，启用产品选择微信小程序并填入你的`AppID`，拿到key。同时选中WebServiceAPI选项，但是不填写任何内容。
-+ 将上一步拿到的`key`填入`XDHealthCard/cloudfunctions/storage/index.js`第24行最后`key=...`，替换掉代码中原有的`key`，并保存。
-+ 在每一个云函数的文件夹上面右击，点击`上传并部署：云端安装依赖（不上传node_modules）`，将八个云函数均部署在云端。
-+ 在云函数`submitTrigger`的文件夹上面右击，点击`上传触发器`。
-+ 在云函数`submit3CTrigger`的文件夹上面右击，点击`上传触发器`。
-+ 此时程序已可在虚拟器中运行，点击右上角上传，将程序上传为开发版本。
-+ 前往[微信公众平台](https://mp.weixin.qq.com)登录此小程序，前往`版本管理->开发版本`将刚才提交的小程序设置为体验版，并下载体验二维码。
-+ 扫描体验二维码就可以在手机端使用此小程序。你也可以将体验二维码分享给最多15人，同意体验申请后即可使用该程序，你可以随时在[微信公众平台](https://mp.weixin.qq.com)的`成员管理`中管理这些体验者。
+​	服务端可配置项如下
 
+```bash
+GLOBAL OPTIONS:
+   --port value, -p value  Server port (default: "1423") [$SERVER_PORT]
+   --appid value           Appid [$APPID]
+   --secret value          App secret [$SECRET]
+   --hmacSecret value      Hmac secret, a random string [$HMAC_SECRET]
+   --mapApiKey value       Map api key [$MAP_API_KEY]
+   --mysqlHost value       Mysql host (default: "127.0.0.1") [$MYSQL_HOST]
+   --mysqlPort value       Mysql port (default: 3306) [$MYSQL_PORT]
+   --mysqlUser value       Mysql user (default: "root") [$MYSQL_USER]
+   --mysqlPasswd value     Mysql password (default: "123456") [$MYSQL_PASSWD]
+   --mysqlDB value         Mysql database (default: "xdu_health_card") [$MYSQL_DB]
+   --help, -h              show help
+   --version, -v           print the version
+```
+
+​	其中，`port`为选填外，其他均必填。
+
+​	mapApiKey的获取方法：前往[腾讯位置服务](https://lbs.qq.com/)，登录并进入控制台，点击`应用管理->我的应用->创建应用`创建一个应用。然后点击`添加key`，启用产品选择微信小程序并填入你的`AppID`，拿到key，即为mapApiKey。同时选中WebServiceAPI选项，但是不填写任何内容。
+
+### 客户端说明
+
+​	请修改[./miniprogram/utils/api.js](https://github.com/Fu-XDU/XDU_HealthCard/tree/main/miniprogram/utils/api.js#L1)第一行以确保小程序正常连接服务端。

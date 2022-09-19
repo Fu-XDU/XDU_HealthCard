@@ -1,3 +1,5 @@
+const api = require('../../utils/api')
+
 // pages/success/success.js
 Page({
   mixins: [require('../../mixin/themeChanged')],
@@ -24,21 +26,28 @@ Page({
       isService: options.service == "true",
     })
   },
+
   home: function () {
-    wx.reLaunch({
-      url: '../threeChecks/threeChecks',
+    // wx.reLaunch({
+    //   url: '../threeChecks/threeChecks',
+    // })
+    wx.navigateBack({
+      delta: 1
     })
   },
+
   show: function () {
     this.setData({
       dialog: true
     })
   },
+
   close: function () {
     this.setData({
       dialog: false
     })
   },
+
   showErrTips: function (tips) {
     clearTimeout(this.data.timeoutID)
     this.setData({
@@ -52,20 +61,16 @@ Page({
       })
     }, 2500);
   },
+
   delete: function () {
     var _this = this
     this.close()
     wx.showLoading({
       title: '正在关闭',
     })
-    wx.cloud.callFunction({
-      name: 'delete',
-      data: {
-        type: _this.data.type
-      }
-    }).then((res) => {
-      wx.hideLoading()
-      if (res.result.stats.removed > 0) {
+
+    const fallback = function (success, error) {
+      if (success) {
         wx.showModal({
           title: '提示',
           content: '关闭成功',
@@ -76,7 +81,25 @@ Page({
             }
           }
         })
-      } else { _this.showErrTips("关闭失败") }
-    })
+      } else { _this.showErrTips(error) }
+    }
+
+    if (this.data.type == 0) {
+      api.deleteHealthCard().then((res) => {
+        wx.hideLoading()
+        fallback(res.data.success, res.data.error)
+      }).catch((err) => {
+        wx.hideLoading()
+        fallback(false, "关闭失败")
+      })
+    } else if (this.data.type == 1) {
+      api.deleteThreeCheck().then((res) => {
+        wx.hideLoading()
+        fallback(res.data.success, res.data.error)
+      }).catch((err) => {
+        wx.hideLoading()
+        fallback(false, "关闭失败")
+      })
+    }
   }
 })
